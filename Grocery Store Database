@@ -1,0 +1,21 @@
+--Create a grocery store database
+
+CREATE table store (id INTEGER PRIMARY KEY, item TEXT, price REAL, quantity INTEGER, manufacturer TEXT);
+INSERT into store VALUES (1, "sweater", 50.00, 10, "Prada");
+INSERT into store VALUES (2, "pants", 25.50, 20, "Levis");
+INSERT into store VALUES (3, "shorts", 15.50, 20, "Levis");
+INSERT into store VALUES (4, "t-shirt", 10.00, 40, "Hanes");
+INSERT into store VALUES (5, "polo shirt", 30.00, 20, "Polo");
+INSERT into store VALUES (6, "boxer briefs", 40.00, 60, "Jockey");
+INSERT into store VALUES (7, "pleather pants", 100.00, 2, "Prada");
+INSERT into store VALUES (8, "mini skirt", 50.00, 20, "Bebe");
+INSERT into store VALUES (9, "sweat pants (mens)", 25.00, 40, "Nike");
+INSERT into store VALUES (10, "socks (athletic)", 12.00, 40, "Nike");
+INSERT into store VALUES (11, "sweat pants (womens)", 25.00, 40, "Nike");
+INSERT into store VALUES (12, "socks (dress)", 24.00, 20, "Cole Haan");
+INSERT into store VALUES (13, "peasant skirt", 40.00, 5, "Dressy");
+INSERT into store VALUES (14, "slides", 25.00, 6, "Adidas");
+INSERT into store VALUES (15, "beanie", 10.00, 10, "North Face");
+
+--What is the price and total value of current inventory sorted by ascending item price
+SELECT item, price, (price*quantity) as "stock value" from store order by price;
