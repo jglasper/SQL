@@ -1,0 +1,13 @@
+--Find the average popularity of the 10 most popular songs of the year
+
+select avg(popularity) from spotifydata
+where id between 1 and 10
+order by popularity desc
+
+--Sort most popular songs by time signature
+
+SELECT artist_name,
+       track_name,
+       time_signature
+  FROM spotifydata
+ ORDER BY time_signature;
