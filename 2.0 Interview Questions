@@ -1,1 +1,21 @@
+--Interview practice questions from sites like StrataScratch, DataLemur, and HackerRank
+---------------------------------------------------------------------------------------------------
 
+--StrataScratch - ID 2145 - Date of Highest User Activity (Medium)
+--Tiktok want to find out what were the top two most active user days during an advertising campaign they ran in the first week of August 2022 (between the 1st to the 7th).
+
+--Identify the two days with the highest user activity during the advertising campaign.
+--They've also specified that user activity must be measured in terms of unique users.
+--Output the day, date, and number of users.
+
+--Used rank function to rank days by unique visitor count, used to_char function to extract the weekday name from the date_visited column
+select 
+        rank() over (order by count(distinct user_id) desc) as Ranking,
+        count(distinct user_id) as uni_vis, 
+        to_char(date_visited, 'Day'),
+        date_visited 
+from user_streaks
+where date_visited between '2022-08-01' and '2022-08-07'
+group by date_visited
+limit 2;
+------------------------------------------------------------------------
