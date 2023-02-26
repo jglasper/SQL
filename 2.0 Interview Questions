@@ -1,7 +1,7 @@
 --Interview practice questions from sites like StrataScratch, DataLemur, and HackerRank
 ---------------------------------------------------------------------------------------------------
 
---StrataScratch - ID 2145 - Date of Highest User Activity (Medium)
+--StrataScratch - ID 2145 - Date of Highest User Activity (Medium) - Postgres
 --Tiktok want to find out what were the top two most active user days during an advertising campaign they ran in the first week of August 2022 (between the 1st to the 7th).
 
 --Identify the two days with the highest user activity during the advertising campaign.
