@@ -9,6 +9,7 @@
 --Output the day, date, and number of users.
 
 --Used rank function to rank days by unique visitor count, used to_char function to extract the weekday name from the date_visited column
+
 select 
         rank() over (order by count(distinct user_id) desc) as Ranking,
         count(distinct user_id) as uni_vis, 
@@ -19,3 +20,20 @@ where date_visited between '2022-08-01' and '2022-08-07'
 group by date_visited
 limit 2;
 ------------------------------------------------------------------------
+
+--DataLemur - Patient Support Analysis (Part 1) [UnitedHealth SQL Interview Question] (Easy) - Postgres
+--UnitedHealth has a program called Advocate4Me, which allows members to call an advocate and receive support for their health care needs – whether that's behavioural, clinical, well-being, health care financing, benefits, claims or pharmacy help.
+--Write a query to find how many UHG members made 3 or more calls. case_id column uniquely identifies each call made.
+
+--Created a CTE to do a count of calls (case_id) grouped by policy holder.  Only pulled policy holders who made three or more calls.  Then did a count of the 
+--results from the CTE to find the requested # of customers who made 3 or more calls.
+
+WITH three_calls AS (
+SELECT
+    policy_holder_id,
+    COUNT(case_id)
+FROM callers
+GROUP BY policy_holder_id
+HAVING COUNT(case_id) >= 3)
+
+SELECT COUNT(*) FROM three_calls AS member_count;
