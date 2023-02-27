@@ -19,6 +19,7 @@ from user_streaks
 where date_visited between '2022-08-01' and '2022-08-07'
 group by date_visited
 limit 2;
+
 ------------------------------------------------------------------------
 
 --DataLemur - Patient Support Analysis (Part 1) [UnitedHealth SQL Interview Question] (Easy) - Postgres
@@ -37,3 +38,17 @@ GROUP BY policy_holder_id
 HAVING COUNT(case_id) >= 3)
 
 SELECT COUNT(*) FROM three_calls AS member_count;
+
+------------------------------------------------------------------------
+
+--DataLemur - Patient Support Analysis (Part 2) [UnitedHealth SQL Interview Question] (Easy) - Postgres
+--Calls to the Advocate4Me call centre are categorised, but sometimes they can't fit neatly into a category. These uncategorised calls are labelled “n/a”, or are just empty (when a support agent enters nothing into the category field).
+
+--Write a query to find the percentage of calls that cannot be categorised. Round your answer to 1 decimal place.
+--Used the filter clause to do a count of calls categorized as null or 'n/a'
+
+select 
+    round((100.0 *
+    count(case_id) filter (where call_category is null or call_category = 'n/a')
+    /count(case_id)),1) as uncat_per
+from callers
