@@ -69,3 +69,18 @@ select
 from airbnb_contacts
 group by id_guest
 order by msg_count desc;
+
+-------------------------------------------------------------------------------------
+
+StrataScratch - ID 10299 - Finding Updated Records (Microsoft) - (Easy) - R
+
+# Import your libraries
+library(dplyr)
+
+# Start writing code
+head(ms_employee_salary)
+
+ms_employee_salary %>%
+select(id, first_name, last_name, department_id, salary) %>%
+group_by(id) %>%
+filter (salary==max(salary))
