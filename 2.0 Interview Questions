@@ -84,3 +84,23 @@ ms_employee_salary %>%
 select(id, first_name, last_name, department_id, salary) %>%
 group_by(id) %>%
 filter (salary==max(salary))
+
+----------------------------------------------------------------------------------------
+
+StrataScratch - ID 2150 - Customers Who Purchased the Same Product - (Medium) - MySQL
+
+--In order to improve customer segmentation efforts for users interested in purchasing furniture, you have been asked to find customers who have purchased the same items of furniture.
+--Output the product_id, brand_name, unique customer ID's who purchased that product, and the count of unique customer ID's who purchased that product. Arrange the output in descending order with the highest count at the top.
+
+select distinct
+        p.product_id, 
+        p.brand_name, 
+        o.customer_id,
+        count(o.customer_id) over (partition by p.product_id) as "item"
+from online_orders o
+join online_products p 
+        on o.product_id = p.product_id
+order by item desc;
+
+
+
