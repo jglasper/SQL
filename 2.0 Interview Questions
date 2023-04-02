@@ -145,3 +145,41 @@ SELECT
 FROM cards
 WHERE iss_date = launch_date
 ORDER BY issued_amount DESC
+
+-------------------------------------------------------------------------------------
+
+DataLemur - Highest-Grossing Items [Amazon SQL Interview Question] - Postgres - Medium
+
+Assume you are given the table containing information on Amazon customers and their spending on products in various categories.
+
+Identify the top two highest-grossing products within each category in 2022. Output the category, product, and total spend.
+product_spend Table:
+Column Name	Type
+category	string
+product	string
+user_id	integer
+spend	decimal
+transaction_date	timestamp
+product_spend Example Input:
+category	product	user_id	spend	transaction_date
+appliance	refrigerator	165	246.00	12/26/2021 12:00:00
+appliance	refrigerator	123	299.99	03/02/2022 12:00:00
+appliance	washing machine	123	219.80	03/02/2022 12:00:00
+electronics	vacuum	178	152.00	04/05/2022 12:00:00
+electronics	wireless headset	156	249.90	07/08/2022 12:00:00
+electronics	vacuum	145	189.00	07/15/2022 12:00:00
+
+with grossprod AS (
+select 
+    category, 
+    product, 
+    SUM(spend) as total_spend,
+    rank() OVER(PARTITION BY category order by sum(spend) desc) as ranking
+from product_spend
+where EXTRACT(year from transaction_date) = 2022
+GROUP BY category, product
+)
+
+select category, product, total_spend
+from grossprod 
+where ranking <= 2
