@@ -183,3 +183,24 @@ GROUP BY category, product
 select category, product, total_spend
 from grossprod 
 where ranking <= 2
+
+------------------------------------------------------------------------------
+
+StrataScratch - Top 5 States With 5 Star Businesses - MySQL - Hard
+
+Find the top 5 states with the most 5 star businesses. Output the state name along with the number of 5-star businesses 
+and order records by the number of 5-star businesses in descending order. In case there are ties in the number of businesses, 
+return all the unique states. If two states have the same result, sort them in alphabetical order.
+
+with cte as (
+select state, count(name) as num_biz, rank() over (order by count(name) desc) as position 
+from yelp_business
+where stars = 5 
+group by state
+order by num_biz desc, state
+)
+
+select state, num_biz
+from cte
+where position <= 5
+
